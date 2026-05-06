@@ -95,39 +95,39 @@ export default function App() {
   const clearAll = () => setSelected([]);
 
   return (
-    <div className="min-h-screen lg:h-screen w-full bg-[#0A0A0B] text-white flex flex-col font-sans overflow-hidden lg:border-8 border-[#1A1C20] select-none">
-      
+    <div className="min-h-[100dvh] w-full bg-[#0A0A0B] text-white flex flex-col font-sans select-none">
+
       {/* Header bar */}
-      <header className="h-16 flex items-center justify-between px-4 sm:px-8 border-b border-white/10 bg-[#0F1115] shrink-0">
+      <header className="h-14 sm:h-16 flex items-center justify-between px-4 sm:px-8 border-b border-white/10 bg-[#0F1115] shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
           <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-gray-400">Order Tracker // Active</span>
         </div>
-        <div className="hidden sm:flex gap-8 text-[10px] font-mono text-gray-500 uppercase">
+        <div className="hidden md:flex gap-8 text-[10px] font-mono text-gray-500 uppercase">
           <span>Target: Marker Sequence</span>
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col p-4 sm:p-10 gap-6 sm:gap-10 overflow-y-auto lg:overflow-hidden">
-        
+      <main className="flex-1 flex flex-col w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 gap-4 sm:gap-5 lg:gap-6">
+
         {/* Header Options */}
-        <div className="flex flex-col gap-2 sm:gap-4 shrink-0">
-          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black italic tracking-tighter leading-none text-white/90 uppercase">
+        <div className="flex flex-col gap-1 sm:gap-2 shrink-0">
+          <h1 className="text-[clamp(2rem,7vw,4.5rem)] font-black italic tracking-tighter leading-none text-white/90 uppercase">
             Current Order
           </h1>
-          <p className="text-gray-500 font-mono tracking-widest text-xs sm:text-sm uppercase">Select markers below</p>
+          <p className="text-gray-500 font-mono tracking-widest text-[10px] sm:text-xs uppercase">Select markers below</p>
         </div>
 
         {/* Target Sequence Row */}
         <div className="w-full shrink-0">
-          <div className="grid grid-cols-5 gap-2 sm:gap-4">
+          <div className="grid grid-cols-5 gap-2 sm:gap-3 max-w-2xl">
             {[0, 1, 2, 3, 4].map((idx) => {
               const item = selected[idx];
               return (
                 <div key={`slot-${idx}`} className="flex flex-col items-center">
                   <div
                     onClick={() => item && removeItem(idx)}
-                    className={`w-full aspect-square rounded-lg sm:rounded-xl border-2 transition-all flex flex-col items-center justify-center p-2 sm:p-4
+                    className={`w-full aspect-square rounded-lg sm:rounded-xl border-2 transition-all flex flex-col items-center justify-center p-2 sm:p-3
                       ${
                         item
                           ? `bg-[#16181D] ${item.borderColor} cursor-pointer hover:border-white/50 active:scale-95 ${item.shadow}`
@@ -135,17 +135,17 @@ export default function App() {
                       }`}
                   >
                     {item && (
-                      <motion.div layoutId={`marker-${item.id}`} className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                      <motion.div layoutId={`marker-${item.id}`} className="w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 lg:w-12 lg:h-12">
                         {getIcon(item.id, item.color, item.dropShadow)}
                       </motion.div>
                     )}
                     {item && (
-                       <span className={`mt-1 sm:mt-2 text-[8px] sm:text-[10px] font-mono uppercase tracking-widest ${item.textColor} hidden sm:block`}>
+                       <span className={`mt-1 text-[8px] sm:text-[10px] font-mono uppercase tracking-widest ${item.textColor} hidden sm:block`}>
                          {item.name} [{idx + 1}]
                        </span>
                     )}
                     {!item && (
-                       <span className="text-xs sm:text-lg font-black text-white/10 hidden sm:block">{idx + 1}</span>
+                       <span className="text-base sm:text-lg font-black text-white/10 hidden sm:block">{idx + 1}</span>
                     )}
                   </div>
                 </div>
@@ -155,8 +155,8 @@ export default function App() {
         </div>
 
         {/* Controls */}
-        <div className="w-full bg-white/5 border border-white/10 rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
-           <div className="flex flex-col gap-2 w-full sm:w-auto">
+        <div className="w-full bg-white/5 border border-white/10 rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+           <div className="flex flex-col gap-1 w-full sm:w-auto">
              <span className="text-[10px] uppercase tracking-widest text-gray-500 hidden sm:block">Quick Actions</span>
              <button
                 onClick={clearAll}
@@ -166,31 +166,31 @@ export default function App() {
                 Clear Sequence
               </button>
            </div>
-           
+
            <div className="text-right hidden sm:block">
               <span className="text-[10px] uppercase tracking-widest text-gray-500">Selected</span>
-              <div className="text-2xl lg:text-3xl font-black font-mono leading-none">{selected.length}/5</div>
+              <div className="text-xl lg:text-2xl font-black font-mono leading-none">{selected.length}/5</div>
            </div>
         </div>
 
         {/* Available Pool Row */}
-        <div className="flex-1 flex flex-col pt-4 sm:pt-6 border-t border-white/10 shrink-0 min-h-[160px] lg:min-h-0">
-          <span className="text-[10px] uppercase tracking-widest text-gray-500 mb-4 block">Available Markers</span>
-          <div className="flex-1 grid grid-cols-5 gap-2 sm:gap-6">
+        <div className="flex-1 flex flex-col pt-3 sm:pt-4 border-t border-white/10 min-h-0">
+          <span className="text-[10px] uppercase tracking-widest text-gray-500 mb-3 block shrink-0">Available Markers</span>
+          <div className="grid grid-cols-5 gap-2 sm:gap-4">
             {MARKERS.map((marker) => {
               const isSelected = selected.some((m) => m.id === marker.id);
               return (
-                <div key={`pool-${marker.id}`} className="flex flex-col items-center h-full">
-                  <div 
+                <div key={`pool-${marker.id}`} className="flex flex-col items-center">
+                  <div
                     onClick={() => !isSelected && addItem(marker)}
-                    className={`w-full h-full min-h-[100px] rounded-lg sm:rounded-xl border-2 transition-all flex flex-col items-center justify-center p-4 sm:p-6
-                      ${!isSelected 
-                        ? `bg-[#0F1115] border-white/10 cursor-pointer hover:bg-[#16181D] hover:${marker.borderColor} active:scale-95` 
+                    className={`w-full aspect-square rounded-lg sm:rounded-xl border-2 transition-all flex flex-col items-center justify-center p-3 sm:p-4
+                      ${!isSelected
+                        ? `bg-[#0F1115] border-white/10 cursor-pointer hover:bg-[#16181D] hover:${marker.borderColor} active:scale-95`
                         : "bg-[#0A0A0B] border-transparent opacity-50"}`}>
                     {!isSelected && (
                       <motion.div
                         layoutId={`marker-${marker.id}`}
-                        className="w-12 h-12 sm:w-24 sm:h-24 lg:w-32 lg:h-32"
+                        className="w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24"
                       >
                         {getIcon(marker.id, marker.color, marker.dropShadow)}
                       </motion.div>
