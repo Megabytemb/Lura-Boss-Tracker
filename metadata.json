@@ -1,0 +1,6 @@
+{
+  "name": "WoW Order Tracker",
+  "description": "Track and remember the order of markers (Triangle, Diamond, X, T, Circle) for WoW mechanics on a second screen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
